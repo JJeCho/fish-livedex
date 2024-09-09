@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Fish Live Dex
 
-First, run the development server:
+<img src="logo.png" width="200" alt="Logo Image">
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Introduction
+Fish Live Dex is an application designed to help users track their fishing catches and learn about various fish and animal species. It solves the problem of keeping a comprehensive record of fishing trips by allowing users to store detailed information about their catches, including photos, species, date, time, and gear used. Additionally, Fish Live Dex provides a checklist feature to help users identify fish species available in their region using geolocation data and external APIs. Fishermen can see what they’ve caught and what they’ve yet to find, making their fishing experience more organized and engaging.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
+- [Node.js](https://nodejs.org/) installed
+- Any package manager such as npm or yarn
+- Internet connection for fetching data from external APIs
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Steps to Install
 
-## Learn More
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/fish-live-dex.git
+   cd fish-live-dex
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Set up environment variables:**
+   Create a `.env` file in the root directory and add any necessary API keys and configuration (e.g., external APIs for geolocation and fish data).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+5. **Access the app:**
+   Open your browser and go to `http://localhost:3000`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Usage
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Once the app is set up and running, users can:
+
+1. **Record catches**: Upload a photo, input the fish species, record the date, time, and any additional information such as gear used.
+   
+2. **View your catches**: Keep track of all the fish you’ve caught in a detailed, filterable list.
+   
+3. **Check available fish in your region**: Use geolocation to see which fish species are available in your area, and compare them with your catch list.
+   
+4. **Explore species**: Search and learn more about fish and other animal species using external APIs.
+
+## Contributing
+
+Contributions are welcome! Here’s how you can contribute:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/my-new-feature`).
+3. Make your changes.
+4. Commit your changes (`git commit -am 'Add new feature'`).
+5. Push to the branch (`git push origin feature/my-new-feature`).
+6. Create a new Pull Request.
+
+### Reporting Bugs and Requesting Features
+
+- Open an issue [here](https://github.com/yourusername/fish-live-dex/issues) to report bugs or request new features.
+- Make sure to provide a detailed description of the bug or feature, and steps to reproduce (if applicable).
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
