@@ -20,6 +20,7 @@ interface Child {
   name: string;
   rank: string;
   default_photo?: Photo;
+  preferred_common_name?: string;
 }
 
 interface Species {
@@ -32,6 +33,7 @@ interface Species {
   default_photo?: Photo;
   ancestors: Ancestor[];
   children?: Child[];
+  preferred_common_name?: string;
 }
 
 // This is the Server Component that fetches data

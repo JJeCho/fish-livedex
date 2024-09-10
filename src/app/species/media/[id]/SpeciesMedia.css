@@ -1,0 +1,77 @@
+/* Main container for the media grid */
+.media-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Styling for the observation card */
+  .card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .card h4 {
+    color: #333;
+  }
+  
+  .card p {
+    color: #777;
+  }
+
+  .mediacard-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Photo container */
+  .photo-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .photo {
+    max-width: 100%;
+    min-width: 140px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  
+  /* Photo controls for cycling through images */
+  .photo-controls {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+  }
+  
+  .photo-controls button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .photo-controls button:hover {
+    background-color: #2980b9;
+  }
+  

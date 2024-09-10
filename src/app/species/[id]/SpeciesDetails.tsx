@@ -14,6 +14,7 @@ interface SpeciesDetailsProps {
       medium_url: string;
       url: string;
     };
+    preferred_common_name?: string;
     ancestors: Array<{
       id: number;
       rank: string;
@@ -22,6 +23,7 @@ interface SpeciesDetailsProps {
         medium_url: string;
         url: string;
       };
+      preferred_common_name?: string;
     }>;
     children?: Array<{
       id: number;
@@ -31,6 +33,7 @@ interface SpeciesDetailsProps {
         medium_url: string;
         url: string;
       };
+      preferred_common_name?: string;
     }>;
   };
 }
@@ -43,6 +46,11 @@ const SpeciesDetails = ({ species }: SpeciesDetailsProps) => {
     router.push(`/species/${id}`); // Push the route with the species ID
   };
 
+  // Navigate to media page on image click
+  const handleMediaNavigate = () => {
+    router.push(`/species/media/${species.id}`); // Navigate to media page
+  };
+
   return (
     <div className="species-id-container">
       <h1>Species Information for ID: {species.id}</h1>
@@ -52,7 +60,15 @@ const SpeciesDetails = ({ species }: SpeciesDetailsProps) => {
         <div className="species-basic-info">
           <h2>{species.name} ({species.rank})</h2>
           {species.default_photo && (
-            <img src={species.default_photo.medium_url} alt={species.name} />
+            <img
+              src={species.default_photo.medium_url}
+              alt={species.name}
+              onClick={handleMediaNavigate} // Add click event to navigate to media page
+              style={{ cursor: 'pointer' }} // Change cursor to indicate clickable image
+            />
+          )}
+          {species.preferred_common_name && (
+            <p><strong>Common Name:</strong> {species.preferred_common_name}</p>
           )}
           <p><strong>Scientific Name:</strong> {species.name}</p>
           <p><strong>Rank:</strong> {species.rank}</p>
@@ -71,6 +87,9 @@ const SpeciesDetails = ({ species }: SpeciesDetailsProps) => {
                 style={{ cursor: 'pointer' }} // Add pointer cursor to indicate clickable
               >
                 <p><strong>{ancestor.rank}:</strong> {ancestor.name}</p>
+                {ancestor.preferred_common_name && (
+                  <p><strong>Common Name:</strong> {ancestor.preferred_common_name}</p>
+                )}
                 {ancestor.default_photo && (
                   <img
                     src={ancestor.default_photo.medium_url}
@@ -95,6 +114,9 @@ const SpeciesDetails = ({ species }: SpeciesDetailsProps) => {
                   style={{ cursor: 'pointer' }} // Add pointer cursor to indicate clickable
                 >
                   <p><strong>{child.name}:</strong> ({child.rank})</p>
+                  {child.preferred_common_name && (
+                    <p><strong>Common Name:</strong> {child.preferred_common_name}</p>
+                  )}
                   {child.default_photo && (
                     <img
                       src={child.default_photo.medium_url}
