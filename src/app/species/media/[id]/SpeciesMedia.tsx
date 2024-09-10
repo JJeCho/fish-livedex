@@ -24,7 +24,7 @@ interface Observation {
 
 interface SpeciesMediaProps {
   observations: Observation[];
-  id: number;
+  id: string;
 }
 
 const SpeciesMedia = ({ observations , id}: SpeciesMediaProps) => {
