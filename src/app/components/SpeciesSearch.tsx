@@ -4,52 +4,48 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import {
-    HoverCard,
-    HoverCardContent,
-    HoverCardTrigger,
-  } from "@/components/ui/hover-card"
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import styles from './SpeciesSearch.module.css'; // For custom styles
 
-// Define a TypeScript interface to describe the species data from GBIF API
-interface Species {
-  key: number;
-  nameKey: number;
-  kingdom: string;
-  phylum: string;
-  order: string;
-  family: string;
-  genus: string;
-  kingdomKey: number;
-  phylumKey: number;
-  orderKey: number;
-  familyKey: number;
-  genusKey: number;
-  parent: string;
-  parentKey: number;
-  nubKey: number;
-  scientificName: string;
+// Define TypeScript interface for the iNaturalist API Taxon Record
+interface TaxonRecord {
+  id: number;
+  name: string;
   canonicalName: string;
+  scientificName: string;
   rank: string;
   status: string;
-  higherClassificationMap: { [key: string]: string };
-  synonym: boolean;
-  class?: string;
-  classKey?: number;
+  preferred_common_name: string;
+  observations_count: number;
+  default_photo?: {
+    medium_url: string;
+    attribution: string;
+  };
+}
+
+// Define the structure for API response type
+interface ApiResponse {
+  results: Array<{
+    type: string;
+    record: TaxonRecord;
+  }>;
 }
 
 const SpeciesSearch: React.FC = () => {
   const [query, setQuery] = useState<string>(''); // Define query as a string
-  const [species, setSpecies] = useState<Species[]>([]); // Define species as an array of Species
+  const [species, setSpecies] = useState<TaxonRecord[]>([]); // Define species as an array of TaxonRecord
 
-
-  // This function will fetch data from the GBIF API
+  // This function will fetch data from the iNaturalist API
   const fetchSpecies = async (query: string) => {
     try {
-      const response = await axios.get<Species[]>(
-        `https://api.gbif.org/v1/species/suggest?q=${query}`
-      );
-      console.log(response.data)
-      setSpecies(response.data); // Update the species array with the API response
+      const response = await axios.get<ApiResponse>(`https://api.inaturalist.org/v1/search?q=${query}&sources=taxa`);
+      const speciesData = response.data.results
+        .filter(result => result.type === 'Taxon')
+        .map(result => result.record);
+      setSpecies(speciesData); // Update the species array with the API response
     } catch (error) {
       console.error('Error fetching species data:', error);
     }
@@ -77,7 +73,7 @@ const SpeciesSearch: React.FC = () => {
       <div className={styles.grid}>
         {species.length > 0 ? (
           species.map((item) => (
-            <SpeciesCard key={item.key} species={item} />
+            <SpeciesCard key={item.id} species={item} />
           ))
         ) : (
           <p>No species found. Try typing something!</p>
@@ -88,40 +84,32 @@ const SpeciesSearch: React.FC = () => {
 };
 
 // New SpeciesCard component to handle individual species details
-const SpeciesCard: React.FC<{ species: Species }> = ({ species }) => {
-    const router = useRouter();
+const SpeciesCard: React.FC<{ species: TaxonRecord }> = ({ species }) => {
+  const router = useRouter();
 
   const handleCardClick = () => {
-    router.push(`/species/${species.key}`); // Navigate to species details page
+    router.push(`/species/${species.id}`); // Navigate to species details page
   };
+
   return (
     <div className={styles.card} onClick={handleCardClick} style={{ cursor: 'pointer' }}>
       <HoverCard>
         <HoverCardTrigger asChild>
-          <h2 className={styles.hoverTitle}>{species.canonicalName}</h2>
+          <h2 className={styles.hoverTitle}>{species.canonicalName || species.name}</h2>
         </HoverCardTrigger>
         <HoverCardContent className={styles.hoverContent}>
-          <h4>Higher Classification Map:</h4>
-          {Object.entries(species.higherClassificationMap).map(([key, value]) => (
-            <p key={key}>
-              <strong>{key}:</strong> {value}
-            </p>
-          ))}
-          <p><strong>{species.key}:</strong> {species.canonicalName}</p>
+          <h4>Common Name: {species.preferred_common_name || 'N/A'}</h4>
+          <p><strong>Scientific Name:</strong> {species.scientificName}</p>
+          <p><strong>Observation Count:</strong> {species.observations_count}</p>
+          <p><strong>Rank:</strong> {species.rank}</p>
+          <p><strong>Status:</strong> {species.status}</p>
+          {species.default_photo && (
+            <div>
+              <img src={species.default_photo.medium_url} alt={species.scientificName} />
+              <p><small>{species.default_photo.attribution}</small></p>
+            </div>
+          )}
         </HoverCardContent>
-      
-      <p><strong>Scientific Name:</strong> {species.scientificName}</p>
-      <p><strong>Kingdom:</strong> {species.kingdom}</p>
-      <p><strong>Phylum:</strong> {species.phylum}</p>
-      <p><strong>Order:</strong> {species.order}</p>
-      <p><strong>Family:</strong> {species.family}</p>
-      <p><strong>Genus:</strong> {species.genus}</p>
-
-      {species.class && <p><strong>Class:</strong> {species.class}</p>}
-      {species.order && <p><strong>Order:</strong> {species.order}</p>}
-      <p><strong>Rank:</strong> {species.rank}</p>
-      <p><strong>Status:</strong> {species.status}</p>
-      <p><strong>Synonym:</strong> {species.synonym ? 'Yes' : 'No'}</p>
       </HoverCard>
     </div>
   );

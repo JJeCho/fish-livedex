@@ -1,0 +1,41 @@
+/* DistributionCard.module.css or VernacularNameCard.module.css */
+
+/* Container holding the grid */
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjusts based on screen size */
+    gap: 16px; /* Space between the cards */
+    padding: 16px; /* Padding around the grid */
+    justify-items: center; /* Center the items horizontally */
+  }
+  
+  /* Individual card styling */
+  .card {
+    background-color: #fff; /* White background for the card */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for a lifted effect */
+    padding: 16px; /* Inner padding */
+    max-width: 300px; /* Limit the card width */
+    width: 100%; /* Ensure the card takes up full width within its grid column */
+    text-align: left; /* Left-align text */
+    transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+  }
+  
+  /* Add hover effect for a bit of interactivity */
+  .card:hover {
+    transform: scale(1.05); /* Slightly enlarge card on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+  }
+  
+  /* Text styling within the card */
+  .card p {
+    margin: 8px 0; /* Space between paragraphs */
+    font-size: 16px; /* Font size for readability */
+    color: #333; /* Dark gray text */
+  }
+  
+  /* Strong/bold text for labels */
+  .card p strong {
+    color: #0070f3; /* Accent color for labels */
+  }
+  

@@ -1,0 +1,165 @@
+/* Centering the content on the page */
+.species-id-container {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 20px;
+  height: 100vh; /* Full viewport height */
+  overflow: hidden; /* Prevent overflow of the entire container */
+  background-color: #f7f7f7;
+  font-family: 'Arial', sans-serif;
+}
+
+.species-id-info {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  height: 100%; /* Ensure the content fits the container */
+  overflow: hidden; /* Prevent overflow */
+  gap: 20px; /* Add space between columns */
+}
+
+/* Header styling */
+.species-id-container h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Card for species basic info */
+.species-basic-info {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 30%; /* Reduce width for better balance */
+  height: auto;
+
+  /* Center content horizontally and vertically */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center */
+  align-items: center;     /* Horizontally center */
+}
+
+.species-basic-info img {
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.species-basic-info p {
+  font-size: 1rem;
+  color: #555;
+  margin: 10px 0;
+}
+
+/* Ancestry section */
+.species-ancestry {
+  margin-bottom: 40px;
+  width: 35%;
+  height: 100%; /* Ensure it fills the available height */
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
+.species-ancestry h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.species-ancestry ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.species-ancestry li {
+  justify-content: space-between;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.species-ancestry img {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.species-ancestry p {
+  font-size: 1rem;
+  color: #555;
+  margin: 0;
+}
+
+/* Relatives (species in genus) section */
+.species-relatives {
+  width: 35%;
+  margin-bottom: 30px;
+  height: 100%; /* Ensure it fills the available height */
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
+.species-relatives h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.species-relatives ul {
+  display: grid;
+  grid-template-columns: 1fr; /* Single-column layout */
+  gap: 20px;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.species-relatives li {
+  justify-content: space-between;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.species-relatives img {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.species-relatives p {
+  font-size: 1rem;
+  color: #555;
+  margin: 0;
+}
+
+/* Wikipedia link styling */
+a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}

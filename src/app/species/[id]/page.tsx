@@ -1,53 +1,56 @@
-import axios from 'axios';
-import styles from './SpeciesDetails.module.css';
+// Server Component for fetching species details
+import "./SpeciesPage.css";
+import SpeciesDetails from './SpeciesDetails'; // Import your Client Component
 
-// Define the Distribution interface based on the example API response
-interface Distribution {
-  taxonKey: number;
-  locationId: string;
-  locality?: string;
-  establishmentMeans?: string;
-  threatStatus?: string;
-  source?: string;
-  sourceTaxonKey?: number;
-  remarks?: string;
+// Define the structure for ancestor and child species
+interface Photo {
+  medium_url: string;
+  url: string;
 }
 
-// Fetch data for the species distribution
-const fetchSpeciesDistributions = async (speciesId: string): Promise<Distribution[]> => {
-  const response = await axios.get(`https://api.gbif.org/v1/species/${speciesId}/distributions`);
-  console.log(response.data)
-  return response.data.results || [];
-};
-
-interface SpeciesDetailsProps {
-  params: { id: string };
+interface Ancestor {
+  id: number;
+  rank: string;
+  name: string;
+  default_photo?: Photo;
 }
 
-const SpeciesDetails = async ({ params }: SpeciesDetailsProps) => {
-  const distributions = await fetchSpeciesDistributions(params.id);
+interface Child {
+  id: number;
+  name: string;
+  rank: string;
+  default_photo?: Photo;
+}
 
-  return (
-    <div className="distributionCard">
-      <h1>Species Distribution for ID: {params.id}</h1>
+interface Species {
+  id: number;
+  name: string;
+  rank: string;
+  extinct: boolean;
+  observations_count: number;
+  wikipedia_url?: string;
+  default_photo?: Photo;
+  ancestors: Ancestor[];
+  children?: Child[];
+}
 
-      {distributions.length > 0 ? (
-        <div className={styles.gridContainer}>
-          {distributions.map((dist) => (
-            <div key={dist.taxonKey} className={styles.card}>
-              <p><strong>Location:</strong> {dist.locality || dist.locationId}</p>
-              {dist.establishmentMeans && <p><strong>Establishment Means:</strong> {dist.establishmentMeans}</p>}
-              {dist.threatStatus && <p><strong>Threat Status:</strong> {dist.threatStatus}</p>}
-              {dist.source && <p><strong>Source:</strong> {dist.source}</p>}
-              {dist.remarks && <p><strong>Remarks:</strong> {dist.remarks}</p>}
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>No distribution data found for this species.</p>
-      )}
-    </div>
-  );
+// This is the Server Component that fetches data
+const SpeciesPage = async ({ params }: { params: { id: string } }) => {
+  const id = params.id;
+
+  // Fetch species details from iNaturalist API
+  const response = await fetch(`https://api.inaturalist.org/v1/taxa/${id}`);
+  const data = await response.json();
+
+  // Safely handle the case when no results are returned
+  if (!data.results || data.results.length === 0) {
+    return <p>No species data found for ID: {id}</p>;
+  }
+
+  const species: Species = data.results[0]; // Assuming the API returns a single result
+
+  // Pass the fetched species data to the Client Component
+  return <SpeciesDetails species={species} />;
 };
 
-export default SpeciesDetails;
+export default SpeciesPage;
