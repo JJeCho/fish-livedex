@@ -1,23 +1,42 @@
 import SpeciesMedia from './SpeciesMedia'; // Import the client component
 import "./SpeciesMedia"
 // Define the structure for media and observations
-interface Photo {
-  id: number;
-  attribution: string;
-  license_code: string;
-  url: string;
-}
 
-interface Observation {
-  id: number;
-  photos: Photo[];
-  observed_on: string;
-  taxon: {
+interface Photo {
+    id: number;
+    attribution: string;
+    license_code: string | null;
+    url: string;
+    medium_url?: string;
+    square_url?: string;
+  }
+  
+  interface Taxon {
     name: string;
     preferred_common_name: string;
     rank: string;
-  };
-}
+    wikipedia_url?: string;
+  }
+  
+  interface User {
+    name: string;
+    login: string;
+  }
+  
+  interface Observation {
+    id: number;
+    photos: Photo[];
+    observed_on: string;
+    taxon: Taxon;
+    location?: string;
+    user: User;
+    description?: string;
+    place_guess?: string;
+    identifications_count?: number;
+    comments_count?: number;
+  }
+
+  
 
 // This is the Server Component that fetches data
 const SpeciesMediaPage = async ({ params }: { params: { id: string } }) => {

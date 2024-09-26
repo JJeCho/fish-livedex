@@ -1,0 +1,13 @@
+UI ISSUES
+- Ensure consistent styling between pages 
+- Better utilize next.js Layout feature 
+    - Consider which pages will have a shared Layout
+- Modify use of external css to use tailwind
+
+
+OTHER ISSUES
+- Move interfaces and type declarations to separate file 
+- Move util functions to a separate file 
+- Fix naming convention issues
+- Fix comments
+- Update markdown and repo settings
